@@ -1,7 +1,13 @@
 import React from 'react'
 
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import { Pages } from '@pages'
+
 export const App = () => {
   return (
-    <h1>Hello world!</h1>
+    <Router>
+      <Pages />
+    </Router>
   )
 }
