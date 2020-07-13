@@ -1,35 +1,28 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { ContentCenter } from '@ui'
-import { PostsList } from '@features/posts'
+import { PostsList, postsSelectors, postsActions } from '@features/posts'
 import { useTitle } from '@lib/title'
 
-const posts = [
-  {
-    title: 'Title 1',
-    date: '12 апреля',
-    author: 'Иван',
-    id: 1
-  },
-  {
-    title: 'Title 2',
-    date: '2 июня',
-    author: 'Алексей',
-    id: 2
-  }
-]
-
 export const HomePage = () => {
+  const dispatch = useDispatch()
+  const posts = useSelector(postsSelectors.posts)
+
   useTitle('Главная')
+
+  useEffect(() => {
+    dispatch(postsActions.getPosts())
+  }, [dispatch])
 
   return (
     <Container>
       <ContentCenter className="vh-100">
-        {!posts.length && (
+        {posts.length === 0 && (
           <Fragment>
             <h1>Вы еще не добавляли никаких записей</h1>
             <p>Нажмите на кнопку ниже, чтобы добавить вашу первую запись</p>
@@ -38,7 +31,7 @@ export const HomePage = () => {
             </Link>
           </Fragment>
         )}
-        {posts.length && (
+        {posts.length > 0 && (
           <Fragment>
             <div className="w-100 d-flex flex-row-reverse mb-3">
               <Link to="/add-post">

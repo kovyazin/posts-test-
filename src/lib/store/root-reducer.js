@@ -1,3 +1,7 @@
 import { combineReducers } from 'redux'
 
-export const rootReducer = combineReducers({})
+import { postsReducer } from '@features/posts'
+
+export const rootReducer = combineReducers({
+  posts: postsReducer
+})

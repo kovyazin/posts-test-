@@ -4,8 +4,11 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Formik } from 'formik'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
 
+import { postsActions } from '@features/posts'
 import { ContentCenter } from '@ui'
 import { useTitle } from '@lib/title'
 
@@ -16,7 +19,13 @@ const schema = yup.object({
 })
 
 export const AddPostPage = () => {
+  const dispatch = useDispatch()
+
   useTitle('Добавить запись')
+
+  const handleAddPostSubmit = (values) => {
+    dispatch(postsActions.addPost(values))
+  }
 
   return (
     <Container>
@@ -28,7 +37,7 @@ export const AddPostPage = () => {
             content: '',
             author: ''
           }}
-          onSubmit={console.log}
+          onSubmit={handleAddPostSubmit}
         >
           {({ handleSubmit, handleChange, values, errors }) => (
             <Form onSubmit={handleSubmit} className="w-100" noValidate>
@@ -76,8 +85,13 @@ export const AddPostPage = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <div className="d-flex justify-content-end">
-                <Button type="submit" variant="outline-primary">
+              <div className="d-flex justify-content-between">
+                <Link to="/">
+                  <Button variant="outline-primary">
+                    Вернуться на главную
+                  </Button>
+                </Link>
+                <Button type="submit" variant="primary">
                   Добавить запись
                 </Button>
               </div>
