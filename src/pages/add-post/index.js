@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -9,24 +9,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
 import { postsActions, postsSelectors } from '@features/posts'
-import { ContentCenter } from '@ui'
+import { ContentCenter, Notification } from '@ui'
 import { useTitle } from '@lib/title'
-
-// const schema = yup.object({
-//   title: yup.mixed().required('Пожалуйста, введите заголовок записи').isNotOnOf(),
-//   content: yup.string().required('Пожалуйста, добавьте контент записи'),
-//   author: yup.string().required('Пожалуйста, введите имя автора записи')
-// })
 
 export const AddPostPage = () => {
   const dispatch = useDispatch()
   const titles = useSelector(postsSelectors.titles)
+
+  const [isShowNotification, setIsShowNotification] = useState(false)
 
   useTitle('Добавить запись')
 
   const handleAddPostSubmit = (values, { resetForm }) => {
     dispatch(postsActions.addPost(values))
     resetForm({})
+    setIsShowNotification(true)
   }
 
   return (
@@ -53,7 +50,6 @@ export const AddPostPage = () => {
           onSubmit={handleAddPostSubmit}
         >
           {({ handleSubmit, handleChange, values, errors, touched }) => {
-            console.log(values)
             return (
               <Form onSubmit={handleSubmit} className="w-100" noValidate>
                 <Form.Group>
@@ -116,6 +112,12 @@ export const AddPostPage = () => {
           }}
         </Formik>
       </ContentCenter>
+      <Notification
+        title="Поздравляем"
+        text="Запись была успешно добавлена"
+        isShow={isShowNotification}
+        hide={() => setIsShowNotification(false)}
+      />
     </Container>
   )
 }
