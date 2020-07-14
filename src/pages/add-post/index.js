@@ -5,21 +5,22 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Formik } from 'formik'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
-import { postsActions } from '@features/posts'
+import { postsActions, postsSelectors } from '@features/posts'
 import { ContentCenter } from '@ui'
 import { useTitle } from '@lib/title'
 
-const schema = yup.object({
-  title: yup.string().required('Пожалуйста, введите заголовок записи'),
-  content: yup.string().required('Пожалуйста, добавьте контент записи'),
-  author: yup.string().required('Пожалуйста, введите имя автора записи')
-})
+// const schema = yup.object({
+//   title: yup.mixed().required('Пожалуйста, введите заголовок записи').isNotOnOf(),
+//   content: yup.string().required('Пожалуйста, добавьте контент записи'),
+//   author: yup.string().required('Пожалуйста, введите имя автора записи')
+// })
 
 export const AddPostPage = () => {
   const dispatch = useDispatch()
+  const titles = useSelector(postsSelectors.titles)
 
   useTitle('Добавить запись')
 
@@ -31,7 +32,18 @@ export const AddPostPage = () => {
     <Container>
       <ContentCenter className="vh-100">
         <Formik
-          validationSchema={schema}
+          validationSchema={yup.object({
+            title: yup
+              .mixed()
+              .required('Пожалуйста, введите заголовок записи')
+              .notOneOf(titles, 'Запись с таким заголовком уже существует'),
+            content: yup
+              .string()
+              .required('Пожалуйста, добавьте контент записи'),
+            author: yup
+              .string()
+              .required('Пожалуйста, введите имя автора записи')
+          })}
           initialValues={{
             title: '',
             content: '',
@@ -80,6 +92,7 @@ export const AddPostPage = () => {
                   isInvalid={!!errors.author}
                   placeholder="Введите имя автора"
                 />
+
                 <Form.Control.Feedback type="invalid">
                   {errors.author}
                 </Form.Control.Feedback>

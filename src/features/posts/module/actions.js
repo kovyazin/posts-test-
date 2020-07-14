@@ -1,6 +1,6 @@
 import * as types from './types'
 
-export const getPosts = () => (dispatch, getState) => {
+export const getPosts = () => (dispatch) => {
   const posts = JSON.parse(localStorage.getItem('posts')) || []
 
   dispatch(getPostsSuccess(posts))
