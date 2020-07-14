@@ -21,7 +21,7 @@ export const HomePage = () => {
 
   return (
     <Container>
-      <ContentCenter className="vh-100">
+      <ContentCenter fullHeight>
         {posts.length === 0 && (
           <Fragment>
             <h1>Вы еще не добавляли никаких записей</h1>

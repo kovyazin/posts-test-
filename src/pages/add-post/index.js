@@ -28,7 +28,7 @@ export const AddPostPage = () => {
 
   return (
     <Container>
-      <ContentCenter className="vh-100">
+      <ContentCenter fullHeight>
         <Formik
           validationSchema={yup.object({
             title: yup

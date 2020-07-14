@@ -22,7 +22,7 @@ export const PostPage = () => {
 
   return (
     <Container>
-      <ContentCenter className="vh-100">
+      <ContentCenter fullHeight>
         {post && (
           <Fragment>
             <PostCard

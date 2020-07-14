@@ -3,11 +3,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-export const ContentCenter = ({ children, className }) => (
+import './styles.css'
+
+export const ContentCenter = ({ children, fullHeight = false }) => (
   <div
     className={classNames(
       'd-flex flex-column align-items-center justify-content-center',
-      className
+      { 'full-height': fullHeight }
     )}
   >
     {children}
@@ -16,5 +18,5 @@ export const ContentCenter = ({ children, className }) => (
 
 ContentCenter.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string
+  fullHeight: PropTypes.bool
 }
