@@ -24,8 +24,9 @@ export const AddPostPage = () => {
 
   useTitle('Добавить запись')
 
-  const handleAddPostSubmit = (values) => {
+  const handleAddPostSubmit = (values, { resetForm }) => {
     dispatch(postsActions.addPost(values))
+    resetForm({})
   }
 
   return (
@@ -51,65 +52,68 @@ export const AddPostPage = () => {
           }}
           onSubmit={handleAddPostSubmit}
         >
-          {({ handleSubmit, handleChange, values, errors }) => (
-            <Form onSubmit={handleSubmit} className="w-100" noValidate>
-              <Form.Group>
-                <Form.Label srOnly>Заголовок записи</Form.Label>
-                <Form.Control
-                  name="title"
-                  value={values.title}
-                  onChange={handleChange}
-                  isInvalid={!!errors.title}
-                  placeholder="Введите заголовок записи"
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.title}
-                </Form.Control.Feedback>
-              </Form.Group>
+          {({ handleSubmit, handleChange, values, errors, touched }) => {
+            console.log(values)
+            return (
+              <Form onSubmit={handleSubmit} className="w-100" noValidate>
+                <Form.Group>
+                  <Form.Label srOnly>Заголовок записи</Form.Label>
+                  <Form.Control
+                    name="title"
+                    value={values.title}
+                    onChange={handleChange}
+                    isInvalid={touched.title && !!errors.title}
+                    placeholder="Введите заголовок записи"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.title}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-              <Form.Group>
-                <Form.Label srOnly>Контент записи</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  name="content"
-                  value={values.content}
-                  onChange={handleChange}
-                  isInvalid={!!errors.content}
-                  rows={8}
-                  placeholder="Добавьте контент записи"
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.content}
-                </Form.Control.Feedback>
-              </Form.Group>
+                <Form.Group>
+                  <Form.Label srOnly>Контент записи</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    name="content"
+                    value={values.content}
+                    onChange={handleChange}
+                    isInvalid={touched.content && !!errors.content}
+                    rows={8}
+                    placeholder="Добавьте контент записи"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.content}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-              <Form.Group>
-                <Form.Label srOnly>Имя автора</Form.Label>
-                <Form.Control
-                  name="author"
-                  values={values.author}
-                  onChange={handleChange}
-                  isInvalid={!!errors.author}
-                  placeholder="Введите имя автора"
-                />
+                <Form.Group>
+                  <Form.Label srOnly>Имя автора</Form.Label>
+                  <Form.Control
+                    name="author"
+                    value={values.author}
+                    onChange={handleChange}
+                    isInvalid={touched.author && !!errors.author}
+                    placeholder="Введите имя автора"
+                  />
 
-                <Form.Control.Feedback type="invalid">
-                  {errors.author}
-                </Form.Control.Feedback>
-              </Form.Group>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.author}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-              <div className="d-flex justify-content-between">
-                <Link to="/">
-                  <Button variant="outline-primary">
-                    Вернуться на главную
+                <div className="d-flex justify-content-between">
+                  <Link to="/">
+                    <Button variant="outline-primary">
+                      Вернуться на главную
+                    </Button>
+                  </Link>
+                  <Button type="submit" variant="primary">
+                    Добавить запись
                   </Button>
-                </Link>
-                <Button type="submit" variant="primary">
-                  Добавить запись
-                </Button>
-              </div>
-            </Form>
-          )}
+                </div>
+              </Form>
+            )
+          }}
         </Formik>
       </ContentCenter>
     </Container>
