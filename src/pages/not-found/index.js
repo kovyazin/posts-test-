@@ -10,8 +10,8 @@ export const NotFoundPage = () => {
   return (
     <Container>
       <ContentCenter fullHeight>
-        <h1>404</h1>
-        <p>Такой страницы не существует</p>
+        <h1 className="text-center">404</h1>
+        <p className="text-center">Такой страницы не существует</p>
         <Link to="/">
           <Button variant="outline-primary">Вернуться на главную</Button>
         </Link>

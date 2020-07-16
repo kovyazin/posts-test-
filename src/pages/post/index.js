@@ -40,7 +40,7 @@ export const PostPage = () => {
         )}
         {!post && (
           <Fragment>
-            <h1 className="mb-3">Упс. Такой записи не существует</h1>
+            <h1 className="mb-3 text-center">Упс. Такой записи не существует</h1>
             <Link to="/">
               <Button variant="outline-primary">Вернуться на главную</Button>
             </Link>

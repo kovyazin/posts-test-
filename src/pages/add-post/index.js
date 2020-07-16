@@ -97,9 +97,12 @@ export const AddPostPage = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <div className="d-flex justify-content-between">
-                  <Link to="/">
-                    <Button variant="outline-primary">
+                <div className="d-flex flex-column flex-sm-row justify-content-sm-between">
+                  <Link
+                    to="/"
+                    className="mt-2 order-1 text-decoration-none order-sm-0 mt-sm-0"
+                  >
+                    <Button variant="outline-primary" block>
                       Вернуться на главную
                     </Button>
                   </Link>

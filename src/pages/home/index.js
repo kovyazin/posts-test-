@@ -23,13 +23,13 @@ export const HomePage = () => {
     <Container>
       <ContentCenter fullHeight>
         {posts.length === 0 && (
-          <Fragment>
+          <div className="text-center">
             <h1>Вы еще не добавляли никаких записей</h1>
             <p>Нажмите на кнопку ниже, чтобы добавить вашу первую запись</p>
             <Link to="/add-post">
               <Button variant="outline-primary">Добавить запись</Button>
             </Link>
-          </Fragment>
+          </div>
         )}
         {posts.length > 0 && (
           <Fragment>
